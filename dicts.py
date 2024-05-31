@@ -20,9 +20,10 @@ def decrement_items(x,y):
     if x == {}:
         return create_inventory(y)
     for item in list(set(y)):
-        x[item] = x[item] - y.count(item) if item in x else y.count(item)
-        if x[item] - y.count(item) < 0:
-            x[item] = 0
+        if item in x:
+            x[item] = x[item] - y.count(item)
+            if x[item] < 0:
+                x[item] = 0
     return x
 decrement_items({"coal":2, "wood":1, "diamond":2}, ["coal", "coal", "wood", "wood", "diamond"])
 
@@ -37,7 +38,8 @@ remove_item({"coal":2, "wood":1, "diamond":2}, "coal")
 def list_inventory(x):
     newlist = []
     for key in x.keys():
-        newlist.append((key, x[key]))
+        if x[key] > 0:
+            newlist.append((key, x[key]))
     return newlist
 list_inventory({"coal":7, "wood":11, "diamond":2, "iron":7, "silver":0})
 
